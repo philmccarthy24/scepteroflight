@@ -63,4 +63,16 @@ module make_ring(ringradius, count) {
     }
 }
 
+// yum
+module pie(angle, radius, depth) {
+    rotate_extrude(angle = angle, convexity = 10) square([radius,depth]);
+}
 
+module pill(xlen, ylen, depth) {
+    translate([(ylen/2)-(xlen/2),0,0])
+    linear_extrude(depth, true)
+    hull() {
+        circle(d=ylen);
+        translate([xlen-ylen,0,0]) circle(d=ylen);
+    }
+}

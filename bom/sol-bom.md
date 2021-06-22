@@ -10,6 +10,8 @@ JST SM 2 pin male/female connectors (optional, good for module reuse): https://w
 
 TP4056 MicroUSB LIon battery charging PCB: https://www.amazon.co.uk/gp/product/B01DRT4PWY/ref=ppx_yo_dt_b_asin_title_o01_s01?ie=UTF8&psc=1 £5.99 for 5 pcs
 
+Switch: RS PRO Panel Mount Slide Switch Single Pole Double Throw (SPDT) Latching 5 A @ 28 V dc Top. RS stock 734-7312. Datasheet https://docs.rs-online.com/992c/0900766b8158765a.pdf £3.19 each
+
 ## Head PCB
 
 Micro vibration motor: https://www.amazon.co.uk/gp/product/B074M24S21/ref=ppx_yo_dt_b_asin_title_o04_s00?ie=UTF8&psc=1 £6.49 for 8pcs

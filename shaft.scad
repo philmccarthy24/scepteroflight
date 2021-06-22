@@ -5,36 +5,16 @@ include <BOSL/threading.scad>
 $fn = 250; 
 //$fn = 50; //replace with line above for high quality render
 
-batteryModuleLength = 80;
-batteryModuleHeight = 23;
-batteryModuleWidth = 22;
 shaftLength = 135;
-shaftDiameter = 36;
+shaftDiameter = 28;
 threadLength = 10;
-
-// hilt connection shaft, with wire run and battery compartment
-difference() {
-    threadedShaftSection(2, 32, 3.5, 30);
-    
-    // the battery compartment
-    translate([0,0,(shaftLength+threadLength-batteryModuleLength)]) centred_xy_cube([batteryModuleWidth,batteryModuleHeight,batteryModuleLength+1]);
-    // some additional cylindrical room top/bottom
-    translate([0,5,(shaftLength+threadLength-batteryModuleLength)]) cylinder(h=batteryModuleLength+1, d=18.5);
-    translate([0,-5,(shaftLength+threadLength-batteryModuleLength)]) cylinder(h=batteryModuleLength+1, d=19);
-    
-    // thread cut-out for micro usb connector
-    translate([-batteryModuleWidth/2, -(batteryModuleHeight/2)-10, (shaftLength+threadLength)-10]) cube([batteryModuleWidth,10,11]);
-    
-    // conical cable run
-    translate([0,0,40]) scale([1,1.35,1]) cylinder(h=(shaftLength+threadLength-batteryModuleLength)-40, r1=7.5, r2=11);
-    translate([0,0,-1]) cylinder(h=40+1, d=15);
-}
+threadPitch = 2.5;
 
 // two upper shaft sections, with wire run
-for (i = [40 : 40 : 80]) {
+for (i = [0 : 40 : 40]) {
     translate([i,0,0]) {
         difference() {
-            threadedShaftSection(3.5, 30, 3.5, 30);
+            threadedShaftSection(threadPitch, shaftDiameter-5, threadPitch, shaftDiameter-5);
             translate([0,0,-1]) cylinder(h=147, d=15);
         }
     }
