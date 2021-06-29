@@ -79,6 +79,8 @@ module positiveTerminalAdaptor() {
 // on off switch and TP4056 module
 module negativeTerminalAdaptor() {
     
+    accessPortRadius = ((batteryDiameter + 4) / 2) + 1.5;
+    
     difference() {
         union() {
             // plug with terminal glued on outside
@@ -92,13 +94,19 @@ module negativeTerminalAdaptor() {
         translate([0,0,5+screwThreadPitch]) cylinder(h=46, d=batteryDiameter);
         
         // hole for on/off switch
-        rotate([0,0,-60])
-        translate([7/2,-shaftDiameter/2,37.5])
+        rotate([0,0,120])
+        translate([7/2,-shaftDiameter/2,30])
         rotate([90,90,180]) {
             cube([20, 7, 1]);
             translate([(20-13.5)/2, 0,1]) cube([13.5, 7, 6]);
         };
-          
+        
+        // ramp to facilitate pushing wires through
+        translate([0,0,12.5])
+        intersection() {
+            cylinder(h=10, r1=accessPortRadius, r2=batteryDiameter/2);
+            rotate([0,0,170]) pie(angle=80, radius=accessPortRadius, depth=10);
+        }
     };
 }
 
