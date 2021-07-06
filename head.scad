@@ -18,9 +18,9 @@ difference() {
 }
 */
 
-//left_head();
+left_head();
 
-head_full_body();
+//head_with_external_inserts();
 
 // TODO: define right_head with lug holes, and speaker hollow.
 // a lot of positioning will be determined by layout of PCB
@@ -135,6 +135,6 @@ module head_full_body() {
         translate([0,0,178]) cylinder(h=5, r1=24, r2=15);
 
         // top screw
-        translate([0, 0, 183 - 0.01]) threaded_rod(d = 25, l = 9, pitch = 3.5, slop=0, orient=ORIENT_Z, align=V_UP);
+        translate([0, 0, 183 - 0.01]) threaded_rod(d = 25, l = 9, pitch = 2.5, slop=0, orient=ORIENT_Z, align=V_UP);
     }
 }

@@ -27,6 +27,7 @@
 */
 use <BOSL/constants.scad>
 include <BOSL/threading.scad>
+use <common.scad>
 
 function make_facets(start,increment,limit,axial_angle,height) =
     start <= limit
@@ -75,15 +76,14 @@ function brilliant_facets() =
 facets = brilliant_facets();
 // echo (len(facets), facets);
 
-gemxyscaling = 6.25/7.5;
-
 difference() {
-    translate([0,0,21.5]) rotate([180,0,0]) scale([9.5*gemxyscaling,9.5*gemxyscaling,9.5]) gem(facets,len(facets));
+    translate([0,0,21.5]) rotate([180,0,0]) scale([6.5,6.5,9.5]) gem(facets,len(facets));
     translate([0,0,75]) cylinder(h=25,d=100);
+    //translate([0,0,-1]) cylinder(h=74, d=160); // debug
 }
 
-// 45 degree cone around bolt
-translate([0,0,75]) cylinder(h=10, d1=43,d2=23, $fn=250);
+// 45 degree cone around bayonet
+translate([0,0,75]) cylinder(h=10, d1=35.5,d2=25, $fn=250);
+translate([0,0,85]) cylinder(h=10, d=25, $fn=250);
+translate([0,0,90]) make_ring(25/2, 4) sphere(d=6, $fn=100); 
 
-// top bolt for gem to screw into thistle
-translate([0,0,85]) threaded_rod(d=25, l=9.5, pitch=3.5, slop=0, orient=ORIENT_Z, align=V_UP, $fn=250);

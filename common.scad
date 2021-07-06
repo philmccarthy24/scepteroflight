@@ -76,3 +76,10 @@ module pill(xlen, ylen, depth) {
         translate([xlen-ylen,0,0]) circle(d=ylen);
     }
 }
+
+module curve_fastener() {
+    scale([1,2,1]){
+        translate([0,-2,0]) cube([1,4,10]);
+        translate([2,0,0]) rotate([0,0,60]) cylinder(h=10,d=4, $fn=3);
+    }
+}
