@@ -1,27 +1,31 @@
-use <BOSL/constants.scad>
-include <BOSL/threading.scad>
+use <common.scad>
 
 $fn=200;
-
-threadDiameter = 10;
-threadHoleAdjustment = 0.35; 
-threadLength = 10;
-threadPitch = 2.5;
-
-difference() {       
+    
+difference() {
     union() {
-        difference() {
-            wing();
-            translate([-24,100,8]) rotate([90,0,0]) cylinder(h=100,r=25);
-        }
-        translate([0,40,8]) rotate([0,90,0]) cylinder(h=10, r=6);
+        translate([0,0,1]) wing();
+        wingjoin(); 
     }
-    translate([-0.5,40,8]) rotate([0,90,0]) threaded_rod(d = threadDiameter, l = threadLength+1, pitch = threadPitch, internal = true, slop = threadHoleAdjustment, orient=ORIENT_Z, align=V_UP);
+    translate([-2.5,38,(8/2)+1]) rotate([90,90,0]) scale([1.03,1.04,1]) wing_fastener();
+    translate([-2.5,37,0.5]) cube([5,37,9]);
 }
 
 module wing() {
-    translate([0,0,2]) linear_extrude(12) hull() {
-            import("assets/SOFB_tip_wings_plan.svg", convexity=10);
+    translate([0,0,2]) linear_extrude(4) hull() {
+            import("assets/SOL_tip_wings_plan.svg", convexity=10);
         }
-    linear_extrude(16) import("assets/SOFB_tip_wings_plan.svg", convexity=10);
+    linear_extrude(8) import("assets/SOL_tip_wings_plan.svg", convexity=10);
+}
+
+module wingjoin() {
+    intersection() {
+        linear_extrude(10) hull() {
+            import("assets/SOL_tip_wings_plan.svg", convexity=10);
+        }
+        minkowski(convexity=10){
+            translate([-2,0,2]) cube([4,80,6]);
+            sphere(d=4);
+        }
+    }
 }
