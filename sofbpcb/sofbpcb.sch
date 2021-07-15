@@ -7,7 +7,7 @@ Sheet 1 1
 Title "Scepter PCB"
 Date "2021-07-14"
 Rev "1"
-Comp ""
+Comp "Phil McCarthy"
 Comment1 ""
 Comment2 ""
 Comment3 ""
@@ -168,17 +168,6 @@ Wire Wire Line
 Wire Wire Line
 	5100 6300 5100 6450
 Connection ~ 5100 6450
-$Comp
-L Connector:Conn_01x02_Male J3
-U 1 1 60F0FC2F
-P 5500 6650
-F 0 "J3" V 5654 6462 50  0000 R CNN
-F 1 "Conn_01x02_Male" V 5563 6462 50  0000 R CNN
-F 2 "" H 5500 6650 50  0001 C CNN
-F 3 "~" H 5500 6650 50  0001 C CNN
-	1    5500 6650
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	6600 6450 5600 6450
 $Comp
@@ -588,8 +577,19 @@ F 3 "~" H 5500 6450 50  0001 C CNN
 	1    5500 6450
 	1    0    0    -1  
 $EndComp
-Connection ~ 5500 6450
 Wire Wire Line
 	4900 3400 5550 3400
 Connection ~ 4900 3400
+$Comp
+L Connector_Generic:Conn_01x02 J3
+U 1 1 60F0E3AF
+P 5600 6650
+F 0 "J3" V 5472 6730 50  0000 L CNN
+F 1 "5v Power In" V 5563 6730 50  0000 L CNN
+F 2 "" H 5600 6650 50  0001 C CNN
+F 3 "~" H 5600 6650 50  0001 C CNN
+	1    5600 6650
+	0    1    1    0   
+$EndComp
+Connection ~ 5500 6450
 $EndSCHEMATC
