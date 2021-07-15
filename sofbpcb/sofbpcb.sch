@@ -27,34 +27,12 @@ $EndComp
 $Comp
 L Device:R_Small R1
 U 1 1 60EECD11
-P 7150 2400
-F 0 "R1" H 7209 2446 50  0000 L CNN
-F 1 "68" V 7150 2350 50  0000 L CNN
-F 2 "" H 7150 2400 50  0001 C CNN
-F 3 "~" H 7150 2400 50  0001 C CNN
-	1    7150 2400
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R6
-U 1 1 60EECF23
-P 7350 2400
-F 0 "R6" H 7409 2446 50  0000 L CNN
-F 1 "68" V 7350 2350 50  0000 L CNN
-F 2 "" H 7350 2400 50  0001 C CNN
-F 3 "~" H 7350 2400 50  0001 C CNN
-	1    7350 2400
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R7
-U 1 1 60EED1C5
-P 7550 2400
-F 0 "R7" H 7609 2446 50  0000 L CNN
-F 1 "68" V 7550 2350 50  0000 L CNN
-F 2 "" H 7550 2400 50  0001 C CNN
-F 3 "~" H 7550 2400 50  0001 C CNN
-	1    7550 2400
+P 7350 3000
+F 0 "R1" H 7409 3046 50  0000 L CNN
+F 1 "22" V 7350 2950 50  0000 L CNN
+F 2 "" H 7350 3000 50  0001 C CNN
+F 3 "~" H 7350 3000 50  0001 C CNN
+	1    7350 3000
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -326,13 +304,6 @@ NoConn ~ 1850 4550
 NoConn ~ 1850 4650
 NoConn ~ 1850 4750
 Wire Wire Line
-	7150 2750 7350 2750
-Wire Wire Line
-	7350 2750 7350 3400
-Wire Wire Line
-	7350 3400 6350 3400
-Connection ~ 7350 2750
-Wire Wire Line
 	7550 2750 7350 2750
 $Comp
 L power:+5V #PWR07
@@ -345,10 +316,6 @@ F 3 "" H 6650 2850 50  0001 C CNN
 	1    6650 2850
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7050 1750 7050 3200
-Wire Wire Line
-	7050 3200 6650 3200
 Wire Wire Line
 	6650 2850 6650 3200
 Connection ~ 6650 3200
@@ -388,10 +355,7 @@ F 3 "~" H 7750 4150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7050 3200 7900 3200
-Wire Wire Line
 	7900 3200 7900 3550
-Connection ~ 7050 3200
 Connection ~ 7900 3550
 Wire Wire Line
 	7900 3550 7900 3850
@@ -457,34 +421,20 @@ Wire Wire Line
 	6550 4600 6550 3800
 Wire Wire Line
 	6550 3800 6350 3800
-Text Label 7050 2050 1    50   ~ 0
-ANODES
-Wire Wire Line
-	7150 2500 7150 2750
-Wire Wire Line
-	7150 1750 7150 2300
-Text Label 7150 2100 1    50   ~ 0
-Led1_Cthd
-Wire Wire Line
-	7350 2500 7350 2750
-Wire Wire Line
-	7550 2500 7550 2750
+Text Label 7150 2150 1    50   ~ 0
+Led1_Anode
 Wire Wire Line
 	7250 1750 7250 2200
 Wire Wire Line
 	7250 2200 7350 2200
-Wire Wire Line
-	7350 2200 7350 2300
-Text Label 7250 2100 1    50   ~ 0
-Led2_Cthd
+Text Label 7250 2150 1    50   ~ 0
+Led2_Anode
 Wire Wire Line
 	7350 1750 7350 2150
 Wire Wire Line
 	7350 2150 7550 2150
-Wire Wire Line
-	7550 2150 7550 2300
-Text Label 7350 2100 1    50   ~ 0
-Led3_Cthd
+Text Label 7350 2150 1    50   ~ 0
+Led3_Anode
 Text Label 7900 4650 0    50   ~ 0
 +
 Text Label 7750 4650 0    50   ~ 0
@@ -592,4 +542,28 @@ F 3 "~" H 5600 6650 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Connection ~ 5500 6450
+Wire Wire Line
+	6650 3200 7350 3200
+Wire Wire Line
+	7350 3200 7350 3100
+Connection ~ 7350 3200
+Wire Wire Line
+	7350 3200 7900 3200
+Wire Wire Line
+	7350 2900 7350 2750
+Wire Wire Line
+	7350 2750 7150 2750
+Wire Wire Line
+	7150 1750 7150 2750
+Connection ~ 7350 2750
+Wire Wire Line
+	7350 2200 7350 2750
+Wire Wire Line
+	7550 2150 7550 2750
+Wire Wire Line
+	6350 3400 7050 3400
+Wire Wire Line
+	7050 3400 7050 1750
+Text Label 7050 2050 1    50   ~ 0
+Cathodes
 $EndSCHEMATC
