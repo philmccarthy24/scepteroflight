@@ -22,8 +22,8 @@ const uint8_t SDCARD_CS_PIN = BUILTIN_SDCARD;
 const uint8_t SDCARD_MOSI_PIN = 11;  // not actually used
 const uint8_t SDCARD_SCK_PIN = 13;  // not actually used
 const uint8_t TIP_LED_STALK_PIN = 32;
-const uint8_t GEM_LED_PINS[] = {31, 30, 29};
-const uint8_t VIB_MOTOR_PIN = 28;
+const uint8_t GEM_LED_PINS[] = {30, 29, 28};
+const uint8_t VIB_MOTOR_PIN = 31;
 
 bool USE_VIBRATION_MOTOR = true;
 

@@ -19,7 +19,7 @@ module right_head() {
         translate([50,0,0]) rotate([0,180,0]) halve_and_align(left=false, xoffset=25) head_with_external_inserts();
         translate([25,120+65,0]) rotate([90,0,0]) cylinder(h=120,d=40);
         
-        // voltage regulator bay and bolt holes
+        // voltage regulator bay, pcb bay roof for clearance and bolt holes
         translate([50,0,0]) mirror([1,0,0]) common_cutouts();
         
         //speaker grille
@@ -58,9 +58,7 @@ module right_head() {
 module left_head() {
     difference() {
         halve_and_align(left=true, xoffset=25) head_with_external_inserts();
-        translate([5,65,-9]) cube([40,120,11]); // don't know. measure circuit board. looks like we'll be able to have 18mm clearance at this length.
-        // might be able to get more if make pcb less long.
-        // could add in standoffs too (see module func below)
+        
         
         // hole for vibration motor, oriented on side
         translate([35.5,59,-5.5]) vibration_motor_bay();
@@ -80,6 +78,7 @@ module left_head() {
     }
     
     lugs();
+    // could add in standoffs for main pcb too (see module func below)
 }
 
 module vibration_motor_bay() {
@@ -95,7 +94,10 @@ module common_cutouts() {
     // tight for standoffs and screw holes, so will just need to be glued in
     translate([25-(22/2), 18, -7.5]) cube([22,48,11]);
     
-    
+    // pcb bay.
+    translate([5,65,-9]) cube([40,120,11]); // don't know. measure circuit board. looks like we'll be able to have 18mm clearance at this length.
+        // might be able to get more if make pcb less long.
+        
 }
 
 module lugs(clearance=0) {
