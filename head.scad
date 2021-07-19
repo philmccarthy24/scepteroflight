@@ -11,16 +11,17 @@ right_head();
 //head_full_body();
 
 
-
-
-// A lot of positioning will be determined by layout of PCB
 module right_head() {
     difference() {
         translate([50,0,0]) rotate([0,180,0]) halve_and_align(left=false, xoffset=25) head_with_external_inserts();
         translate([25,120+65,0]) rotate([90,0,0]) cylinder(h=120,d=40);
         
-        // voltage regulator bay, pcb bay roof for clearance and bolt holes
+        // voltage regulator bay
         translate([50,0,0]) mirror([1,0,0]) common_cutouts();
+        
+        // pcb bay top - note this give 6mm more clearance than bottom,
+        // giving a total of 18mm for pcb height
+        translate([5,65,-12]) cube([40,120,15]);
         
         //speaker grille
         translate([25,120+40,-30]) circular_grille(height=20, diameter=25);
@@ -59,9 +60,18 @@ module left_head() {
     difference() {
         halve_and_align(left=true, xoffset=25) head_with_external_inserts();
         
+        // 5mm depth standoff floor for pcb bay
+        translate([25,65,0]) rotate([-90,0,0]) intersection()
+        {
+            cylinder(h=120, d=40);
+            translate([-30,0,0]) cube([60,6+5,120]); // 9mm pcb bay depth, 5mm M3 screw depth clearance (standoffs will come up from notional pcb bay "floor" by 1mm, to give clearance for poking LEDs through
+        }
         
         // hole for vibration motor, oriented on side
         translate([35.5,59,-5.5]) vibration_motor_bay();
+        
+        // pcb bay bottom
+        translate([5,65,-6]) cube([40,120,11]);
         
         common_cutouts();
         
@@ -78,7 +88,11 @@ module left_head() {
     }
     
     lugs();
-    // could add in standoffs for main pcb too (see module func below)
+    
+    // standoffs for main pcb
+    translate([15,65+10,-6-5]) m3_standoff(); // bottom left
+    translate([5+12,65+120-20,-6-5]) m3_standoff(); // top left
+    translate([50-5-12,65+120-20,-6-5]) m3_standoff(); // top right
 }
 
 module vibration_motor_bay() {
@@ -92,12 +106,7 @@ module vibration_motor_bay() {
 module common_cutouts() {
     // XL6009E1 voltage regulator bay. clearance is too
     // tight for standoffs and screw holes, so will just need to be glued in
-    translate([25-(22/2), 18, -7.5]) cube([22,48,11]);
-    
-    // pcb bay.
-    translate([5,65,-9]) cube([40,120,11]); // don't know. measure circuit board. looks like we'll be able to have 18mm clearance at this length.
-        // might be able to get more if make pcb less long.
-        
+    translate([25-(22/2), 18, -7.5]) cube([22,48,11]); 
 }
 
 module lugs(clearance=0) {
@@ -228,7 +237,7 @@ module circular_grille(height, diameter) {
 // this might be useful in main pcb bay
 module m3_standoff() {
     difference() {
-    cylinder(h=5, d1=15, d2=6);
+    cylinder(h=5, d1=10, d2=5);
     translate([0, 0, 0.5]) threaded_rod(d = 3, l = 5, pitch = 0.5, internal = true, slop = 0.25, orient=ORIENT_Z, align=V_UP);
     }
 }
