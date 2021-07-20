@@ -7,11 +7,11 @@ Sheet 1 1
 Title "Scepter PCB"
 Date "2021-07-14"
 Rev "1"
-Comp "Phil McCarthy"
+Comp ""
 Comment1 ""
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "Author: Phil McCarthy"
 $EndDescr
 $Comp
 L Device:R_Small R1
