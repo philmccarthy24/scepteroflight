@@ -87,7 +87,7 @@ module curve_fastener() {
 module wing_fastener() {
     rotate([0,0,90])
     scale([1,2,1]){
-        translate([0,-2,0]) cube([3,4,35]);
-        translate([4,0,0]) rotate([0,0,60]) cylinder(h=35,d=4, $fn=3);
+        translate([0,-2,0]) cube([3,4,15]);
+        translate([4,0,0]) rotate([0,0,60]) cylinder(h=15,d=4, $fn=3);
     }
 }

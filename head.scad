@@ -3,10 +3,11 @@ use <BOSL/constants.scad>
 include <BOSL/threading.scad>
 
 //$fn = 250;
-$fn=50; // uncomment line above for high detail
+$fn=25; // uncomment line above for high detail
 
-translate([-60,0,0]) left_head();
+translate([-70,0,0]) left_head();
 right_head();
+
 
 //head_full_body();
 
@@ -20,42 +21,29 @@ module right_head() {
         translate([50,0,0]) mirror([1,0,0]) common_cutouts();
         
         // pcb bay top - note this give 6mm more clearance than bottom,
-        // giving a total of 18mm for pcb height
-        translate([5,65,-12]) cube([40,120,15]);
+        // giving a total of 16mm for pcb height
+        translate([5,65,-10]) cube([40,120,15]);
         
         //speaker grille
         translate([25,120+40,-30]) circular_grille(height=20, diameter=25);
         
         // holes for lugs
-        translate([50,0,0]) rotate([0,180,0]) lugs(clearance=0.5);
+        translate([50,0,0]) rotate([0,180,0]) lugs(clearance=0.5, depthOffset=1);
         
         // top part of vibration motor bay
         translate([25-4-(35.5-25),59,5.5]) vibration_motor_bay();
         
-        // TODO: REMOVE - JUST FOR PROTOTYPING TO SEE WHAT BOSSED SCREW HOLE
-        // WITH NUT INSERT LOOKS LIKE. RIGHT SIDE OF RIGHT SIDE WILL NOT HAVE SCREW HOLES
-        // TODO: ALSO REMOVE TEMP CYLINDER BOSS IN FULL BODY MODULE
-        // top m2 bolt hole
-        translate([50-2.5, 180, -6])cylinder(h=7,d=2.4); // bore
-        //translate([50-2.5, 180, -25])cylinder(h=18,d=4); // screw head boss
-        translate([50-2.5-m2nutradius, 180-m2nutradius, -6]) cube([m2nutradius*2, m2nutradius*2, 2]);
-        //////// END REMOVE
-        
-        // m2 bolt holes
-        // 16mm shaft bottom screw protrudes 6mm
-        translate([25+16, 60, -7])cylinder(h=8,d=2.4); // bore
-        // top 12mm shaft screw protrudes 5mm
-        translate([2.5, 180, -6])cylinder(h=7,d=2.4); // bore
-        // m2 nut holder - nuts are 1.47mm high and 4mm across flat edge
-        // to flat edge.
-        m2nutradius = 2.25;
-        // bottom nut holder - from center line
-        translate([25, 60-m2nutradius, -6]) cube([16+m2nutradius, m2nutradius*2, 2]);
-        // top nut holder has to be external - leave 4mm material
-        translate([2.5-m2nutradius, 180-m2nutradius, -6]) cube([m2nutradius*2, m2nutradius*2, 2]);
+        // staggered M2 bolt holes
+        // bottom
+        translate([25+15, 60, -25])cylinder(h=30,d=2.4); // bore
+        translate([25+15, 60, -25])cylinder(h=16,d=4); // screw head boss
+        // top
+        translate([2.5, 180, -25])cylinder(h=30,d=2.4); // bore
+        translate([2.5, 180, -25])cylinder(h=18,d=4); // screw head boss
     }
 };
 
+// this is the "bottom", ie base of pcb
 module left_head() {
     difference() {
         halve_and_align(left=true, xoffset=25) head_with_external_inserts();
@@ -75,16 +63,12 @@ module left_head() {
         
         common_cutouts();
         
-        // staggered M2 bolt holes
-        // bottom
-        translate([25-16, 60, -25])cylinder(h=30,d=2.4); // bore
-        translate([25-16, 60, -25])cylinder(h=15,d=4); // screw head boss
-        // middle - taken out
-        //translate([50-2.5, 150, -25])cylinder(h=30,d=2.4); // bore
-        //translate([50-2.5, 150, -25])cylinder(h=18,d=4); // screw head boss
-        // top
-        translate([50-2.5, 180, -25])cylinder(h=30,d=2.4); // bore
-        translate([50-2.5, 180, -25])cylinder(h=18,d=4); // screw head boss
+        // holes for m2 brass screw inserts
+        // bottom: 13.15mm long M2 bolt will protrudes 3mm, ideal for 4mm depth insert
+        translate([25-15, 60, -6]) m2_insert_cutout();
+        
+        // top: 11.35mm long M2 bolt including head will protrudes 3mm to fit smallest M2x4x3.5 brass insert.
+        translate([50-2.5, 180, -6]) m2_insert_cutout();
     }
     
     lugs();
@@ -109,40 +93,40 @@ module common_cutouts() {
     translate([25-(22/2), 18, -7.5]) cube([22,48,11]); 
 }
 
-module lugs(clearance=0) {
+module lugs(clearance=0, depthOffset=0) {
     // lugs - bottom
     translate([(25-10)-0.5,11,0])
     minkowski() {
-        cube([1,4,2]);
+        cube([1,4,2+depthOffset]);
         sphere(d=2+clearance);
-    }
+    };
     translate([(25+10)-0.5,11,0])
     minkowski() {
-        cube([1,4,2]);
+        cube([1,4,2+depthOffset]);
         sphere(d=2+clearance);
-    }
+    };
     // lugs - middle
     translate([25-23,85,0])
     minkowski() {
-        cube([1,10,2]);
+        cube([1,10,2+depthOffset]);
         sphere(d=2+clearance);
     }
     translate([25+23-1,85,0])
     minkowski() {
-        cube([1,10,2]);
+        cube([1,10,2+depthOffset]);
         sphere(d=2+clearance);
     }
     // lugs - top
     translate([25-10,187,0])
     rotate([0,0,90])
     minkowski() {
-        cube([1,5,2]);
+        cube([1,5,2+depthOffset]);
         sphere(d=2+clearance);
     }
     translate([25+15,187,0])
     rotate([0,0,90])
     minkowski() {
-        cube([1,5,2]);
+        cube([1,5,2+depthOffset]);
         sphere(d=2+clearance);
     }
 }
@@ -194,17 +178,14 @@ module head_full_body() {
         translate([0,0,100])
         import("assets/scepterheadwrap.stl", convexity=3);
         // fasteners for wings
-        translate([0,0,100]) rotate([0,0,60]) make_ring(24, 3) wing_fastener();
+        translate([0,0,150]) rotate([0,0,60]) make_ring(23, 3) wing_fastener();
         
-        // m2 screw housing (ensures there is enough material around screw, as
+        // m2 screw housing (ensures there is enough material around screw and insert hole, as
         // head texture juts into bolt shaft)
         translate([0,0,168.5]) rotate([0,0,-90]) intersection() {
             cylinder(d=50,h=5);
             union() {
                 translate([2.5-25, -25, 2.5]) rotate([-90,0,0]) cylinder(h=50,d=5);
-                
-                // TODO: REMOVE THIS, JUST FOR PROTOTYPING TO SEE WHAT BOSS LOOKS LIKE
-                translate([25-2.5, -25, 2.5]) rotate([-90,0,0]) cylinder(h=50,d=5);
             }
         }
 
@@ -217,7 +198,7 @@ module head_full_body() {
         translate([0,0,178]) cylinder(h=5, r1=24, r2=15);
 
         // top screw
-        translate([0, 0, 183 - 0.01]) threaded_rod(d = 25, l = 9, pitch = 2.5, slop=0, orient=ORIENT_Z, align=V_UP);
+        translate([0, 0, 183 - 0.01]) threaded_rod(d = 25, l = 2.5, pitch = 2.5, slop=0, orient=ORIENT_Z, align=V_UP);
     }
 }
 
@@ -233,11 +214,28 @@ module circular_grille(height, diameter) {
     }
 }
 
+module m2_insert_cutout() {
+    cylinder(h=1, d1=3.5,d2=3);
+    translate([0,0,1]) cylinder(h=3, d=3.1);
+    translate([0,0,4]) cylinder(h=1.5, d1=3.1,d2=3.75);
+    translate([0,0,5.5]) cylinder(h=0.5, d=3.75);
+}
+
+module m3_insert_cutout() {
+    cylinder(h=1, d1=5,d2=4.5);
+    translate([0,0,1]) cylinder(h=2.5, d=4.5);
+    translate([0,0,3.5]) cylinder(h=1.5, d1=4.5,d2=5.25);
+    translate([0,0,5]) cylinder(h=0.5, d=5.25);
+}
+
 // for pcb thickness of 1.6mm and screw length of 6mm.
-// this might be useful in main pcb bay
+// actual height of standoff is 5.5mm
 module m3_standoff() {
     difference() {
-    cylinder(h=5, d1=10, d2=5);
-    translate([0, 0, 0.5]) threaded_rod(d = 3, l = 5, pitch = 0.5, internal = true, slop = 0.25, orient=ORIENT_Z, align=V_UP);
-    }
+        union() {
+            cylinder(h=4.5, d1=12, d2=8);
+            translate([0,0,4.5]) cylinder(h=1, d=8);
+        };
+        m3_insert_cutout();
+    };
 }
