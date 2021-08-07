@@ -1,4 +1,0 @@
-(fp_lib_table
-  (lib (name teensy)(type KiCad)(uri ${KIPRJMOD}/teensy.pretty)(options "")(descr "")(disabled))
-  (lib (name scepterpcblogo)(type KiCad)(uri ${KIPRJMOD}/scepterpcblogo.pretty)(options "")(descr ""))
-)
