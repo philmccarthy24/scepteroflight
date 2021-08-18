@@ -3,7 +3,7 @@
 
 *Phil McCarthy, August 2021*
 
-### BOM / required parts list
+### BOM / required components list
 
 #### Head assembly
 
@@ -50,3 +50,5 @@
 
 #### Miscellaneous
 22 gauge wires, eg [from here](https://www.amazon.co.uk/gp/product/B00B4ZQ3L0/ref=ppx_yo_dt_b_search_asin_image?ie=UTF8&psc=1).
+
+This comes to £68.61 for all the components required for a single sceptre build, not including minimum quantities required, 3D printing costs or PCB fabrication costs. Worth noting that half the component cost is the (massively overspec'd until machine learning is added) MCU; you will be able to redesign cheaper if you don't need gesture recognition.
