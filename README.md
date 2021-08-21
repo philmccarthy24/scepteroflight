@@ -15,6 +15,8 @@ My daughter loves Elena, and wanted a scepter to go with her costume. I've thoug
 
 The scepter lights up and plays music when turned on, and rumbles with "magic" when waved. See a quick [video demo here](https://youtu.be/RlnO9K1_UK8).
 
+I've made [an Instructable](https://www.instructables.com/Scepter-of-Light/) and [a Thing](https://www.thingiverse.com/thing:4937785) to go with this repository, to make it more searchable.
+
 ### Features
 
 - Easy access charging via MicroUSB port in unscrewable hilt - red light is charging, blue means charged. Grille around port allows heat dissapation during charge. ![charging](docs/charging.jpeg)
